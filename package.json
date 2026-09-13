@@ -1,6 +1,6 @@
 {
 	"name": "quyuan",
-	"version": "0.1.0",
+	"version": "1.0.0",
 	"description": "屈原本地优先语音与人格运行时——从 TALOS for Obsidian 插件提取的去 Obsidian 化可移植模块",
 	"license": "SEE LICENSE IN LICENSE",
 	"type": "module",
@@ -25,7 +25,8 @@
 		"build": "tsup && tsc -p tsconfig.build.json --emitDeclarationOnly --declaration --outDir dist",
 		"typecheck": "tsc --noEmit",
 		"test": "vitest run",
-		"test:watch": "vitest"
+		"test:watch": "vitest",
+		"prepare": "npm run build"
 	},
 	"devDependencies": {
 		"jsdom": "^26.1.0",

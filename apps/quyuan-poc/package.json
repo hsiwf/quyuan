@@ -1,0 +1,23 @@
+{
+	"name": "quyuan-poc",
+	"private": true,
+	"version": "2.0.0",
+	"type": "module",
+	"description": "路线 A · 屈原浏览器 POC:本机 Node 可信侧服务 + 浏览器全功能语音页",
+	"scripts": {
+		"dev": "concurrently -n server,vite -c blue,green \"node server.mjs\" \"vite\"",
+		"build": "vite build",
+		"start": "node server.mjs",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"marked": "^15.0.7",
+		"quyuan": "file:../../",
+		"dompurify": "^3.2.4"
+	},
+	"devDependencies": {
+		"concurrently": "^9.1.2",
+		"typescript": "^5.8.3",
+		"vite": "^6.3.5"
+	}
+}

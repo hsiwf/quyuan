@@ -1,0 +1,22 @@
+[package]
+name = "quyuan-tauri"
+version = "0.1.0"
+description = "屈原 · 语音工作台(Tauri 路线)"
+edition = "2021"
+
+[lib]
+name = "quyuan_tauri_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+# custom-protocol:绕过 tauri CLI 直接 cargo build 时必须显式启用,
+# 否则 exe(含 release)会去连 devUrl 导致"localhost 拒绝连接"。
+tauri = { version = "2", features = ["custom-protocol"] }
+tauri-plugin-fs = "2"
+tauri-plugin-dialog = "2"
+tauri-plugin-http = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"

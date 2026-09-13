@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>屈原 · 语音工作台(POC)</title>
+	</head>
+	<body>
+		<!-- 容器带 talos-console 上下文类,使 quyuan 工作台 chrome 样式原样生效 -->
+		<div id="app" class="talos-console" data-talos-page="jarvis"></div>
+
+		<button id="open-settings" class="qp-settings-btn" title="宿主设置">⚙</button>
+		<div id="settings-overlay" class="qp-overlay" hidden>
+			<div class="qp-settings-panel">
+				<h2>屈原宿主设置</h2>
+				<p class="qp-hint">
+					填写后点「保存并重启」。API Key 只写入本机 quyuan.config.json,由可信侧(127.0.0.1 服务/主进程)持有,页面与远端都拿不到。
+					knowledgeDir 填本地文件夹绝对路径,屈原的库内只读工具(glob/read/grep/search)会在里面工作。
+				</p>
+				<textarea id="settings-json" spellcheck="false"></textarea>
+				<div class="qp-actions">
+					<button id="settings-pick" hidden>选择知识库目录…</button>
+					<span class="qp-actions-spacer"></span>
+					<button id="settings-save">保存并重启</button>
+					<button id="settings-cancel">取消</button>
+				</div>
+			</div>
+		</div>
+		<div id="toast-root" class="qp-toast-root"></div>
+
+		<script type="module" src="/src/main.ts"></script>
+	</body>
+</html>

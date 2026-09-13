@@ -1,0 +1,29 @@
+{
+	"name": "quyuan-tauri",
+	"private": true,
+	"version": "2.0.0",
+	"type": "module",
+	"description": "路线 C · 屈原 Tauri 2 桌面应用:WebView2/WKWebView + Rust 可信侧插件(轻量打包)",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"typecheck": "tsc --noEmit",
+		"tauri": "tauri",
+		"app:dev": "tauri dev",
+		"app:build": "tauri build"
+	},
+	"dependencies": {
+		"@tauri-apps/api": "^2.5.0",
+		"@tauri-apps/plugin-dialog": "^2.2.1",
+		"@tauri-apps/plugin-fs": "^2.3.0",
+		"@tauri-apps/plugin-http": "^2.4.4",
+		"marked": "^15.0.7",
+		"quyuan": "file:../../",
+		"dompurify": "^3.2.4"
+	},
+	"devDependencies": {
+		"@tauri-apps/cli": "^2.5.0",
+		"typescript": "^5.8.3",
+		"vite": "^6.3.5"
+	}
+}

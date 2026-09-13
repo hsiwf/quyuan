@@ -1,0 +1,4 @@
+node_modules/
+dist/
+quyuan.config.json
+quyuan-usage.jsonl

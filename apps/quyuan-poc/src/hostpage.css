@@ -1,0 +1,135 @@
+/* 屈原宿主页壳(样式本体来自 quyuan/styles.css,这里只负责页面骨架) */
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+	background: #0b0f14;
+	color: #dbe4ee;
+	font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+}
+
+#app {
+	position: fixed;
+	inset: 0;
+}
+
+/* 设置入口按钮 */
+.qp-settings-btn {
+	position: fixed;
+	top: 14px;
+	right: 14px;
+	z-index: 60;
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	border: 1px solid #2a3646;
+	background: #111823;
+	color: #9fb3c8;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.qp-settings-btn:hover {
+	color: #e8f1fb;
+	border-color: #3b4b60;
+}
+
+/* 设置浮层 */
+.qp-overlay[hidden] {
+	/* display:flex 会覆盖 hidden 属性的 UA 样式,必须显式压回 */
+	display: none;
+}
+
+.qp-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 50;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(4, 8, 12, 0.72);
+}
+
+.qp-settings-panel {
+	width: min(680px, 92vw);
+	max-height: 84vh;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 20px;
+	border: 1px solid #2a3646;
+	border-radius: 12px;
+	background: #0e141c;
+}
+
+.qp-settings-panel h2 {
+	margin: 0;
+	font-size: 16px;
+}
+
+.qp-hint {
+	margin: 0;
+	font-size: 12px;
+	line-height: 1.7;
+	color: #8ba0b6;
+}
+
+.qp-settings-panel textarea {
+	flex: 1;
+	min-height: 320px;
+	resize: vertical;
+	padding: 12px;
+	border: 1px solid #2a3646;
+	border-radius: 8px;
+	background: #0a0f16;
+	color: #cfe0f2;
+	font: 12px/1.6 Consolas, monospace;
+}
+
+.qp-actions {
+	display: flex;
+	gap: 10px;
+	justify-content: flex-end;
+}
+
+.qp-actions button {
+	padding: 8px 18px;
+	border: 1px solid #2a3646;
+	border-radius: 8px;
+	background: #16202c;
+	color: #dbe4ee;
+	cursor: pointer;
+}
+
+.qp-actions button:first-child {
+	background: #24518a;
+	border-color: #3572bd;
+}
+
+/* toast */
+.qp-toast-root {
+	position: fixed;
+	bottom: 18px;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 70;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	align-items: center;
+	pointer-events: none;
+}
+
+.qp-toast {
+	padding: 10px 18px;
+	border: 1px solid #2a3646;
+	border-radius: 10px;
+	background: #121a24;
+	color: #dbe4ee;
+	font-size: 13px;
+	box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+}

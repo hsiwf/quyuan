@@ -1,48 +1,109 @@
-# 屈原 Quyuan · 可移植语音人格模块
+# 屈原 Quyuan · 可移植语音人格运行时
 
-> 从 [TALOS for Obsidian](https://github.com/WAINAO-Haaper/talos-plugin) 插件 `src/quyuan/`(56 个文件,约 9500 行)完整提取的**去 Obsidian 化可移植模块**。屈原是 TALOS 的"屈原"语音人格子系统:人格合同、写库治理、强制人格上下文、Qwen Omni Realtime 实时语音、本地 VAD/ASR 语音链、TalosBall 动画舞台与语音工作台 UI。
+> 从 [TALOS for Obsidian](https://github.com/WAINAO-Haaper/talos-plugin) 插件完整提取、**去 Obsidian 化**的屈原告语音子系统:人格合同、写库治理、强制人格上下文、Qwen Omni Realtime 实时语音、本地 VAD/ASR 语音链、TalosBall 动画舞台与语音工作台 UI。
 >
-> 提取原则:**talos-plugin 原仓库保持不动**;本模块是独立副本,源码级合同测试钉住行为不漂移。
+> 本仓库包含 **1 个可移植模块**(`src/`)与 **3 条开箱即用的运行路线**(`apps/`):浏览器 POC、Electron 桌面应用、Tauri 桌面应用。
 
-## 出处与许可( provenance )
+## 仓库结构
 
-- **上游项目**:TALOS for Obsidian,作者 外脑玩家 Haaper([@WAINAO-Haaper](https://github.com/WAINAO-Haaper)),仓库 [WAINAO-Haaper/talos-plugin](https://github.com/WAINAO-Haaper/talos-plugin)
-- **本仓库性质**:对 TALOS Materials 的修改版再分发,依据 [LICENSE](./LICENSE)(TALOS Personal Use Source License 1.0)第 2 条"个人非商业用途"条款进行:完整源码公开、原许可与版权声明完整保留、不收取任何费用、接收方获得不劣于原许可的限制
-- **修改标识**:全部源码相对上游做了结构性适配(去 Obsidian 化端口化,详见下文《与 TALOS 原实现的有意差异》);第三方资产许可见 [THIRD-PARTY-NOTICES.md](./THIRD-PARTY-NOTICES.md)
-- 本项目不是 TALOS 官方发布物,也**不得**将本模块或其修改版声称为自己的原创作品;商用需按 LICENSE 第 3 条向版权人获得书面授权
+```
+quyuan/
+├── src/                  # 屈原可移植模块(纯 TS,零运行时依赖)
+│   ├── host/             #   宿主端口:文本存储/UI/Agent 工作台/DOM 兼容层/图标
+│   ├── vendor/           #   随迁的 TALOS 纯文件与第三方资产
+│   └── ...               #   语音面板/实时语音/治理/人格/会话存储
+├── apps/
+│   ├── quyuan-poc/       # 路线 A · 浏览器 POC(Node 可信侧 + 网页)
+│   ├── quyuan-app/       # 路线 B · Electron 桌面应用(推荐自用)
+│   └── quyuan-tauri/     # 路线 C · Tauri 2 桌面应用(轻量备选)
+└── styles/               # 屈原工作台样式(shell + 宿主 chrome)
+```
 
-## 能力地图
+## 版本
 
-| 层 | 内容 | 依赖形态 |
+| 版本 | 内容 |
+|---|---|
+| **v1.0.0** | 屈原可移植模块:提取、去 Obsidian 化、宿主端口化、141 项测试全绿 |
+| **v2.0.0** | 新增三条运行路线(apps/),凭证配置化,开箱即用 |
+
+## 三条路线怎么选
+
+| 场景 | 推荐 | 理由 |
 |---|---|---|
-| 核心 | `contract.ts` 能力合同、`governance.ts` 写库铁律、`persona-context.ts` 强制三文件人格上下文、`native-voice-driver.ts` 语音/文字双通道驱动 | 纯逻辑,Node/浏览器通用 |
-| 引擎 | `qwen-realtime-voice.ts` 实时语音状态机(11 态)、`vad-mic.ts`/`silero-vad.ts` 本地 VAD、`sherpa-local-asr-runtime.ts` 本地 ASR、`cloud-asr.ts` 失败关闭桩 | 标准 Web API(WebRTC/WebAudio/WASM) |
-| UI | `voice-panel.ts` 语音工作台(六态舞台、唤醒词门控、打断、TTS)、`talos-ball/` 动画球、粒子磁场 | DOM,经 `src/host/dom.ts` 兼容层 |
-| 端口 | `src/host/` 宿主接口 + 默认实现 | 由宿主注入 |
-| vendor | `src/vendor/` 随迁的零依赖纯文件(见下) | 无 |
+| **日常自用、要稳定** | B · Electron | 系统级音频/麦克风最可靠;原生目录选择;UserData 隔离配置 |
+| **在意体积、想分发** | C · Tauri | 安装包小一个量级;Rust 插件白名单网络域;需 Rust 工具链 |
+| **快速验证、二次开发参考** | A · 浏览器 POC | 零桌面依赖,半天看懂全部接线;改动即时生效 |
+
+三条路线共用同一份页面装配代码与同一套宿主端口,配置格式完全一致——从一个路线迁到另一个,只需换桥接实现。
 
 ## 快速开始
 
+### 0. 准备凭证(三条路线通用)
+
+1. [阿里云百炼](https://bailian.console.aliyun.com) 创建 API-KEY(`sk-` 开头)
+2. 百炼控制台"业务空间"页复制业务空间 ID
+3. (可选)准备一个放 Markdown 笔记的文件夹作为"屈原告知识库"
+
+### A · 浏览器 POC
+
 ```bash
+cd apps/quyuan-poc
 npm install
-npm run typecheck   # tsc --noEmit,全绿
-npm test            # vitest,18 文件 / 141 用例
-npm run build       # dist/ ESM + CJS + 54 个 .d.ts
+npm run dev        # 可信侧服务(8787)+ Vite(5188);浏览器打开 http://localhost:5188
+# 或生产形态:npm run build && npm start(由可信侧服务托管,http://127.0.0.1:8787)
 ```
 
-## 嵌入指南(以 Web 前端为例)
+页面右上角 ⚙ 填入 Key、业务空间 ID、知识库目录 → 点"开启语音"。详见 [apps/quyuan-poc/README.md](apps/quyuan-poc/README.md)。
+
+### B · Electron 桌面应用(推荐)
+
+```bash
+cd apps/quyuan-app
+npm install        # 国内网络保留 .npmrc(electron 镜像)
+npm start          # 构建并打开桌面窗口
+```
+
+窗口右上角 ⚙ 设置(支持原生目录选择)。详见 [apps/quyuan-app/README.md](apps/quyuan-app/README.md)。
+
+### C · Tauri 桌面应用
+
+```bash
+cd apps/quyuan-tauri
+npm install
+npm run build                                  # 前端 dist(被 exe 内嵌)
+cd src-tauri && cmd //c _vsrelease.cmd         # 编译正式版(Git Bash/MSYS 必须走 vcvars,见该目录 README)
+./target/release/quyuan-tauri.exe              # 独立运行,无需任何服务器
+```
+
+详见 [apps/quyuan-tauri/README.md](apps/quyuan-tauri/README.md)。
+
+### 语音怎么玩(三条路线一致)
+
+1. 点红色"**开启语音**",允许麦克风
+2. 说「**屈原**」唤醒 → 30 秒内连续对话;说「退下」休眠;「退出语音」关麦
+3. 试试:「现在几点了?」(对话)/「知识库里有哪些文件?」(库内只读工具)/「**联网搜索**一下今天的新闻」(带口令才出网,安全设计)
+
+文字输入框始终可用,与语音共享治理规则。
+
+## 模块嵌入指南(二次开发)
+
+把 `src/` 当作普通 npm 包使用(本仓库内 apps 通过 `file:../..` 引用):
+
+```bash
+npm install        # 根目录;prepare 脚本会自动构建 dist
+```
 
 ### 1. 安装 DOM 兼容层(必须最先调用)
 
-TALOS 的 UI 代码依赖 Obsidian 挂在 `HTMLElement` 原型上的扩展方法。本模块提供同语义实现:
+TALOS 的 UI 代码依赖 Obsidian 预挂在 `HTMLElement` 原型上的扩展方法,本模块提供同语义实现:
 
 ```ts
 import { installQuyuanDomExtensions } from "quyuan";
 
-installQuyuanDomExtensions(); // 幂等;在任何页面/DOM 测试中调用一次即可
+installQuyuanDomExtensions(); // 幂等;任何页面/DOM 测试中调用一次即可
 ```
 
-覆盖:`createEl/createDiv/createSpan`(支持 `cls/text/attr` 等)、`setText`、`empty`、`addClass/removeClass/toggleClass`、`setCssProps`,以及 `setIcon`(内置 14 个 Lucide 系内联 SVG + talos-logo,可用 `registerQuyuanIcon` 扩展)。
+覆盖:`createEl/createDiv/createSpan`(`cls/text/attr`)、`setText`、`empty`、`addClass/removeClass/toggleClass`(支持空格分隔多类名)、`setCssProps`,以及 `setIcon`(内置 14 个 Lucide 系内联 SVG + talos-logo,`registerQuyuanIcon` 可扩展)。
 
 ### 2. 实现宿主端口
 
@@ -51,19 +112,18 @@ import {
   QuyuanVoicePanel, InMemoryTextStore, DEFAULT_QUYUAN_SETTINGS,
   type QuyuanHost, type QuyuanVoiceRuntimeHost,
 } from "quyuan";
-import "quyuan/styles.css"; // 或直接引入 styles/quyuan-shell.css
+import "quyuan/styles.css";
+import "quyuan/styles/workspace-chrome.css";
 
-// —— 通用 UI 端口(Notice / MarkdownRenderer / 设置入口 的替代)——
 const host: QuyuanHost = {
-  configDir: ".config",                       // 原 Obsidian 的 .obsidian,用于库路径禁区判断
-  notify: (msg, timeoutMs) => ui.toast(msg),  // 原 new Notice(...)
-  renderMarkdown: async (md, el) => { el.innerHTML = myMarkdown.render(md); },
-  openSettings: () => myApp.openSettings(),   // 可选
+  configDir: ".config",                        // 原 Obsidian 的 .obsidian,用于库路径禁区判断
+  notify: (msg, timeoutMs) => ui.toast(msg),   // 原 new Notice(...)
+  renderMarkdown: async (md, el) => { el.innerHTML = DOMPurify.sanitize(marked.parse(md)); },
+  openSettings: () => myApp.openSettings(),    // 可选
 };
 
-// —— 智能体工作台端口(语音/文字通道的大脑)——
 const runtimeHost: QuyuanVoiceRuntimeHost = {
-  getAgentWorkbenchService: () => myAgentService, // QuyuanAgentWorkbenchService 结构接口
+  getAgentWorkbenchService: () => myAgentService,        // QuyuanAgentWorkbenchService 结构接口
   auditQuyuanProviderEgress: async (input) => myPrivacyAudit(input),
 };
 ```
@@ -74,24 +134,24 @@ const runtimeHost: QuyuanVoiceRuntimeHost = {
 const plugin = {
   ...runtimeHost,
   paths: {},                                   // QuyuanVaultPaths:宿主路径快照
-  activateQuyuanV2View: async () => {},        // "转到 AI 对话" 导航钩子
-  exchangeQuyuanRealtimeSdp: async (input) => myServer.negotiate(input), // 信令必须在可信宿主侧(持百炼 Key)
+  activateQuyuanV2View: async () => {},        // "转到 AI 对话"导航钩子
+  exchangeQuyuanRealtimeSdp: async (input) => trusted.sdp(input),   // 信令必须在可信侧(持百炼 Key)
   executeQuyuanVoiceVaultTool: async (input) => myVaultTools.run(input), // 应路由经 authorizeTool
-  executeQuyuanVoiceWebSearch: async (input) => myWebSearch.run(input),  // 同上
+  executeQuyuanVoiceWebSearch: async (input) => trusted.webSearch(input),// 同上
   recordQuyuanProviderUsage: async (input) => myUsageStore.record(input),
 };
 
 const panel = new QuyuanVoicePanel(
   host,                        // ① 宿主 UI 端口(原 Obsidian App 的替代)
   plugin,                      // ② 面板依赖(TalosQuyuanPlugin 接口)
-  { ...DEFAULT_QUYUAN_SETTINGS, /* 覆盖设置字段 */ },
+  { ...DEFAULT_QUYUAN_SETTINGS },
   async () => saveSettings(),  // ④ 可选:设置持久化回调
   (pageKey) => router.go(pageKey), // ⑤ 可选:页面导航
 );
 panel.mount(document.querySelector("#quyuan-root"));
 ```
 
-其余能力按需直接导入:`QuyuanModule`(人格+治理组合根,构造参数为 `QuyuanTextStore` + 工作台适配器)、`VoiceSessionStore`(注入 `VoiceSessionPersistence` 即可接 localStorage/IndexedDB)、`buildTalosDataMap`、`StreamTts` 等。
+> 三条路线的完整装配实现就在 `apps/*/src/main.ts`,是最好的参考样本(各约 400 行)。
 
 ## 宿主端口一览
 
@@ -117,7 +177,7 @@ panel.mount(document.querySelector("#quyuan-root"));
 | `vendor/provider-capabilities.ts` | `src/ai/provider/types.ts` + `src/ai/privacy/provider-usage-audit-store.ts` 的纯类型部分 |
 | `vendor/runtime-contracts/` | `src/agent-workbench/contracts/`(agent-events、runtime-adapter、runtime-capabilities) |
 | `vendor/voiceio.ts` | `src/jarvis/voiceio.ts`(系统 TTS;WebSpeech STT 保持失败关闭桩) |
-| `vendor/local-voice-runtime/`、`talos-ball/runtime/vendor/` | 固定版本第三方资产(见 `THIRD-PARTY-NOTICES.md`) |
+| `vendor/local-voice-runtime/`、`src/talos-ball/runtime/vendor/` | 固定版本第三方资产(见 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)) |
 
 ## 与 TALOS 原实现的有意差异
 
@@ -130,8 +190,16 @@ panel.mount(document.querySelector("#quyuan-root"));
 
 ## 测试
 
-18 个测试文件、141 个用例,与 talos-plugin 同源:治理、人格上下文、语音会话隔离、只读策略(源码级合同)、Qwen 实时语音、本地语音供应链、TalosBall 运行时完整性/姿态等价。在纯 Node 环境运行(DOM 相关测试使用 `tests/helpers/mini-dom`)。
+根目录 18 个测试文件、141 个用例,与 talos-plugin 同源:治理、人格上下文、语音会话隔离、只读策略(源码级合同)、Qwen 实时语音、本地语音供应链、TalosBall 运行时完整性/姿态等价。纯 Node 环境运行(DOM 相关测试使用 `tests/helpers/mini-dom`)。
 
-## 许可
+```bash
+npm test        # 141 用例
+npm run build   # dist/ ESM + CJS + 声明文件
+```
 
-本模块是 TALOS Materials 的修改版,完整许可文本随仓库分发,见 [LICENSE](./LICENSE)(TALOS Personal Use Source License 1.0,个人非商业使用;商用须按其第 3 条获得版权人书面授权);第三方资产许可见 [THIRD-PARTY-NOTICES.md](./THIRD-PARTY-NOTICES.md)。
+## 出处与许可( provenance )
+
+- **上游项目**:TALOS for Obsidian,作者 外脑玩家 Haaper([@WAINAO-Haaper](https://github.com/WAINAO-Haaper)),仓库 [WAINAO-Haaper/talos-plugin](https://github.com/WAINAO-Haaper/talos-plugin)
+- **本仓库性质**:对 TALOS Materials 的修改版再分发,依据 [LICENSE](./LICENSE)(TALOS Personal Use Source License 1.0)第 2 条"个人非商业用途"条款进行:完整源码公开、原许可与版权声明完整保留、不收取任何费用、接收方获得不劣于原许可的限制
+- **修改标识**:全部源码相对上游做了结构性适配(去 Obsidian 化端口化,详见上文《与 TALOS 原实现的有意差异》);第三方资产许可见 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)
+- 本项目不是 TALOS 官方发布物,也**不得**将本模块或其修改版声称为自己的原创作品;商用需按 LICENSE 第 3 条向版权人获得书面授权

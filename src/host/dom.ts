@@ -54,7 +54,11 @@ declare global {
 function flattenClasses(
 	classes: Array<string | string[]>
 ): string[] {
-	return classes.flatMap((item) => (Array.isArray(item) ? item : [item])).filter(Boolean);
+	// 与 Obsidian 语义对齐:单个字符串允许空格分隔多个类名
+	// (如 cls: "tq-btn tq-btn--sm"),DOMTokenList.add 不接受含空格的 token。
+	return classes
+		.flatMap((item) => (Array.isArray(item) ? item : item.split(/\s+/)))
+		.filter(Boolean);
 }
 
 function applyDomOptions(el: HTMLElement, options?: QuyuanDomElementInfo | string): void {

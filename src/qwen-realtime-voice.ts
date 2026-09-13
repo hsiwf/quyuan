@@ -114,6 +114,8 @@ export interface RealtimeAudioPort {
 	muted: boolean;
 	srcObject: unknown;
 	play(): Promise<void> | void;
+	/** 从文档移除;默认实现已把元素挂入 body,自定义环境可不实现 */
+	remove?(): void;
 }
 
 export interface QwenRealtimeEnvironment {
@@ -134,8 +136,16 @@ function defaultEnvironment(): QwenRealtimeEnvironment {
 					autoGainControl: true,
 				},
 			}),
-		createAudioElement: () =>
-			document.createElement("audio"),
+		createAudioElement: () => {
+			const audio = document.createElement("audio");
+			// 必须挂入文档:Obsidian/Electron 的游离媒体元素可直接出声,
+			// 但多数嵌入式 WebView(以及部分浏览器策略)对不在 DOM 里的
+			// <audio> 静默处理,导致"链路通、模型在说、本地无声"。
+			audio.style.display = "none";
+			audio.setAttribute("playsinline", "");
+			document.body.appendChild(audio);
+			return audio;
+		},
 	};
 }
 
@@ -1129,7 +1139,12 @@ export class QwenRealtimeVoiceSession {
 			}
 		}
 		this.stream = null;
-		if (this.audio) this.audio.srcObject = null;
+		if (this.audio) {
+			this.audio.srcObject = null;
+			// 元素已挂入 body(见 createAudioElement),销毁时一并移除;
+			// 自定义环境(测试 mock)可以不实现 remove
+			this.audio.remove?.();
+		}
 		this.audio = null;
 		if (notify || wasConnected) {
 			this.handlers.onConnectionChange?.(false);

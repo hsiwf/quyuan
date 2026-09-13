@@ -13,7 +13,8 @@
 			"import": "./dist/index.js",
 			"require": "./dist/index.cjs"
 		},
-		"./styles.css": "./styles/quyuan-shell.css"
+		"./styles.css": "./styles/quyuan-shell.css",
+		"./styles/workspace-chrome.css": "./styles/quyuan-workspace-chrome.css"
 	},
 	"files": [
 		"dist",

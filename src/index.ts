@@ -28,6 +28,29 @@ export type {
 	QuyuanAuthorizeToolInput,
 	QuyuanApprovalPromptContext,
 } from "./host/agent-workbench-port";
+export {
+	createAgentEvent,
+	AGENT_EVENT_SCHEMA_VERSION,
+	type AgentEvent,
+	type AgentEventType,
+} from "./vendor/runtime-contracts/agent-events";
+export {
+	unavailableCapabilities,
+	type RuntimeCapabilities,
+	type CapabilitySupport,
+} from "./vendor/runtime-contracts/runtime-capabilities";
+export type {
+	AgentRuntimeAdapter,
+	RuntimeId,
+	RuntimeHistoryItem,
+	RuntimeInputBlock,
+	NativeSessionBinding,
+	CreateSessionInput,
+	RuntimeTurn,
+	RuntimeToolPolicy,
+	RuntimeProbe,
+	ModelDescriptor,
+} from "./vendor/runtime-contracts/runtime-adapter";
 
 // —— 人格合同与治理 ——
 export {
@@ -88,6 +111,34 @@ export {
 	type VoiceInputMode,
 } from "./voice-mode-controller";
 export { buildTalosDataMap } from "./voice-data-map";
+export {
+	executeVoiceVaultTool,
+	VOICE_VAULT_TOOL_NAMES,
+	isVoiceVaultToolName,
+	type VoiceVaultToolName,
+	type VoiceVaultToolOptions,
+	type VoiceVaultToolResult,
+} from "./voice-vault-tools";
+export {
+	formatVoiceVaultSearchResult,
+	searchVoiceVault,
+	type VoiceVaultSearchOptions,
+	type VoiceVaultSearchPort,
+} from "./voice-vault-search";
+export {
+	VOICE_QWEN_WEB_SEARCH_ALLOWED,
+	resolveEffectiveRuntimePolicy,
+	type EffectiveRuntimePolicy,
+	type TalosRuntimeChannel,
+} from "./runtime-policy";
+export {
+	QWEN_VOICE_WEB_SEARCH_MODEL,
+	qwenWebSearchEndpoint,
+	buildQwenWebSearchRequest,
+	parseQwenWebSearchResponse,
+	type QwenVoiceWebSearchRegion,
+	type QwenWebSearchResult,
+} from "./qwen-web-search";
 export { StreamTts, normalizeForSpeech } from "./vendor/voiceio";
 export type {
 	ProviderCapability,

@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"inlineSourceMap": true,
+		"inlineSources": true,
+		"module": "ESNext",
+		"target": "ES2022",
+		"strict": true,
+		"noImplicitReturns": false,
+		"noFallthroughCasesInSwitch": true,
+		"noUncheckedIndexedAccess": false,
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"isolatedModules": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		"lib": ["ES2022", "DOM", "DOM.Iterable"]
+	},
+	// 与 TALOS 一致:typecheck 只覆盖 src/;tests/ 由 vitest 转译执行,
+	// 不纳入 tsc(上游测试从未做过严格类型检查,含故意的 as never 片段)。
+	"include": ["src/**/*.ts"]
+}

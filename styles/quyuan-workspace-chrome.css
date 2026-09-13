@@ -1,0 +1,158 @@
+/* ============================================================
+ * 屈原工作台 chrome(宿主上下文适配层)
+ * vendor 自 TALOS 插件 styles.ui-v2.css,未修改;
+ * 选择器中的 .talos-console[data-talos-page="jarvis"] 是 TALOS 控制台
+ * 页面的宿主上下文。嵌入到其他宿主时,把该前缀替换为自己的容器
+ * 选择器(或直接删除前缀)。基础样式见 quyuan-shell.css。
+ * ============================================================ */
+   The TalosBall stage, weak particle atmosphere, lower controls, theme
+   mappings, and motion remain owned by styles.quyuan-shell.css. */
+.talos-console[data-talos-page="jarvis"] .tq-workspace-bar {
+	position: absolute;
+	top: 16px;
+	left: 16px;
+	right: 16px;
+	z-index: 24;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	pointer-events: none;
+}
+
+.talos-console[data-talos-page="jarvis"] .tq-workspace-identity,
+.talos-console[data-talos-page="jarvis"] .tq-workspace-meta > span {
+	border: 2px solid var(--tq-module-border);
+	background: var(--tq-module-surface);
+	box-shadow: 4px 4px 0 var(--tq-module-shadow);
+	backdrop-filter: none;
+}
+
+.talos-console[data-talos-page="jarvis"] .tq-workspace-identity {
+	display: grid;
+	grid-template-columns: 36px minmax(0, 1fr);
+	align-items: center;
+	gap: 10px;
+	min-width: 0;
+	padding: 7px 12px 7px 7px;
+	border-radius: 0;
+}
+
+.talos-console[data-talos-page="jarvis"] .tq-workspace-mark {
+	display: grid;
+	width: 36px;
+	height: 36px;
+	place-items: center;
+	border: 2px solid var(--tq-module-border);
+	border-radius: 0;
+	color: #191713;
+	background: var(--tq-module-yellow);
+}
+
+.talos-console[data-talos-page="jarvis"] .tq-workspace-mark svg {
+	width: 18px;
+	height: 18px;
+}
+
+.talos-console[data-talos-page="jarvis"] .tq-workspace-copy {
+	min-width: 0;
+}
+
+.talos-console[data-talos-page="jarvis"] .tq-workspace-copy small,
+.talos-console[data-talos-page="jarvis"] .tq-workspace-copy strong {
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.talos-console[data-talos-page="jarvis"] .tq-workspace-copy small {
+	font-size: 10px;
+	font-weight: 700;
+	letter-spacing: 0.12em;
+	color: var(--tq-muted);
+}
+
+.talos-console[data-talos-page="jarvis"] .tq-workspace-copy strong {
+	margin-top: 2px;
+	font-size: 13px;
+	color: var(--tq-text);
+}
+
+.talos-console[data-talos-page="jarvis"] .tq-workspace-meta {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 8px;
+	min-width: 0;
+}
+
+.talos-console[data-talos-page="jarvis"] .tq-workspace-meta > .tq-go-chat {
+	min-height: 34px;
+	padding-inline: 12px;
+	pointer-events: auto;
+	white-space: nowrap;
+}
+
+.talos-console[data-talos-page="jarvis"] .tq-workspace-meta > span {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	min-height: 30px;
+	padding: 0 10px;
+	border-radius: 0;
+	font-size: 11px;
+	font-weight: 650;
+	color: var(--tq-muted);
+	white-space: nowrap;
+}
+
+.talos-console[data-talos-page="jarvis"] .tq-workspace-meta svg {
+	width: 14px;
+	height: 14px;
+	color: var(--tq-state);
+}
+
+.talos-console[data-talos-page="jarvis"] .tq-workspace-state__dot {
+	width: 7px;
+	height: 7px;
+	border-radius: 50%;
+	background: var(--tq-state);
+	box-shadow: 0 0 12px color-mix(in srgb, var(--tq-state) 78%, transparent);
+}
+
+@container tq-stage (max-width: 620px) {
+	.talos-console[data-talos-page="jarvis"] .tq-workspace-bar {
+		top: 10px;
+		left: 10px;
+		right: 10px;
+		gap: 8px;
+	}
+
+	.talos-console[data-talos-page="jarvis"] .tq-workspace-boundary {
+		display: none;
+	}
+}
+
+@container tq-stage (max-width: 420px) {
+	.talos-console[data-talos-page="jarvis"] .tq-workspace-identity {
+		grid-template-columns: 30px minmax(0, 1fr);
+		gap: 7px;
+		padding: 5px 9px 5px 5px;
+	}
+
+	.talos-console[data-talos-page="jarvis"] .tq-workspace-mark {
+		width: 30px;
+		height: 30px;
+	}
+
+	.talos-console[data-talos-page="jarvis"] .tq-workspace-copy small {
+		display: none;
+	}
+
+	.talos-console[data-talos-page="jarvis"] .tq-workspace-meta > span {
+		min-height: 28px;
+		padding-inline: 8px;
+		font-size: 10px;
+	}
+}

@@ -241,7 +241,7 @@ npm run build   # dist/:ESM + CJS + 54 个类型声明
 - [TalosBall](https://github.com/sam70361/emotion-ball)(sam70361) —— 32 态动画舞台
 - [Lucide](https://lucide.dev) —— 图标;[marked](https://marked.js.org) / [DOMPurify](https://github.com/cure53/DOMPurify) —— 渲染
 
-完整第三方许可边界见 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)。
+完整第三方许可边界见 [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md),许可全文清单见 [THIRD-PARTY-LICENSES.txt](THIRD-PARTY-LICENSES.txt)。
 
 ## 📄 许可与出处
 

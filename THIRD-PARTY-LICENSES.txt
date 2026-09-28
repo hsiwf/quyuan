@@ -1,0 +1,155 @@
+QUYUAN THIRD-PARTY LICENSES
+===========================
+
+本文件与 THIRD-PARTY-NOTICES.md 配套,是根目录 LICENSE(TALOS Personal Use
+Source License 1.0)第 6 条所指的第三方许可文本清单。屈原本移模块自有部分沿用
+根目录 LICENSE;下列第三方材料继续受各自许可证和服务条款约束。
+
+清单一览
+--------
+
+组件                                      版本/修订            许可证                     全文位置
+----------------------------------------  -------------------  -------------------------  --------------------------------------------------------------
+sherpa-onnx(browser WASM 快照)           1.13.6 / 7c59b522    Apache-2.0                 src/vendor/local-voice-runtime/LICENSE-SHERPA-ONNX-APACHE-2.0.txt
+ONNX Runtime(内嵌推理引擎)               1.27.1               MIT                        src/vendor/local-voice-runtime/LICENSE-ONNXRUNTIME-MIT.txt
+ASR 模型 csukuangfj/k2fsa-zipformer-…     e2382758             Apache-2.0(仓库声明)      资产不随仓库分发;文本同 Apache-2.0 条目
+TalosBall / emotion-ball 运行时快照       0.3.0 / b406eeb2     Emotion Ball 社区许可      src/talos-ball/runtime/vendor/talos-ball-runtime/
+                                                               (附 NOTICE.md、
+                                                               LICENSE-COMMERCIAL.md、
+                                                               SOURCE_ATTRIBUTION.md)
+Lucide(内联 SVG 图标路径数据)            v0.x                 ISC + Feather 派生项 MIT   本文件 第一节
+Uiverse Galaxy 按钮交互(改写)             gharsh11032000       MIT                        本文件 第二节
+Claudian 视觉样式基线(.claudian-*)        2.0.25 / 9496e66a    MIT                        本文件 第三节
+
+说明:
+
+- 上表前四项的许可全文已随包分发于所指文件,本文件不重复收录,以所指文件为准。
+- 后三项的许可全文在本文件中逐字收录(复制自上游仓库对应 LICENSE 文件),
+  以本文件文本为准。
+- Ma Shan Zheng 字体(SIL OFL 1.1)与 Silero VAD 不随本仓库分发,无随包
+  许可文本义务;宿主如自行引入,须遵守其各自许可证。
+
+
+第一节 Lucide(ISC;Feather 派生图标为 MIT)
+------------------------------------------
+
+来源:https://github.com/lucide-icons/lucide 的 LICENSE 文件,逐字收录。
+用于 src/host/icons.ts 的内联 SVG 路径数据;其中 loader、moon、radio 位于
+下列 Feather 派生清单,该部分适用文末 MIT 条款(Cole Bemis)。
+
+------ 以下为上游 LICENSE 原文 ------
+
+ISC License
+
+Copyright (c) 2026 Lucide Icons and Contributors
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+---
+
+The following Lucide icons are derived from the Feather project:
+
+airplay, alert-circle, alert-octagon, alert-triangle, aperture, arrow-down-circle, arrow-down-left, arrow-down-right, arrow-down, arrow-left-circle, arrow-left, arrow-right-circle, arrow-right, arrow-up-circle, arrow-up-left, arrow-up-right, arrow-up, at-sign, calendar, cast, check, chevron-down, chevron-left, chevron-right, chevron-up, chevrons-down, chevrons-left, chevrons-right, chevrons-up, circle, clipboard, clock, code, columns, command, compass, corner-down-left, corner-down-right, corner-left-down, corner-left-up, corner-right-down, corner-right-up, corner-up-left, corner-up-right, crosshair, database, divide-circle, divide-square, dollar-sign, download, external-link, feather, frown, hash, headphones, help-circle, info, italic, key, layout, life-buoy, link-2, link, loader, lock, log-in, log-out, maximize, meh, minimize, minimize-2, minus-circle, minus-square, minus, monitor, moon, more-horizontal, more-vertical, move, music, navigation-2, navigation, octagon, pause-circle, percent, plus-circle, plus-square, plus, power, radio, rss, search, server, share, shopping-bag, sidebar, smartphone, smile, square, table-2, tablet, target, terminal, trash-2, trash, triangle, tv, type, upload, x-circle, x-octagon, x-square, x, zoom-in, zoom-out
+
+The MIT License (MIT) (for the icons listed above)
+
+Copyright (c) 2013-present Cole Bemis
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+------ 上游 LICENSE 原文结束 ------
+
+
+第二节 Uiverse Galaxy(MIT)
+---------------------------
+
+来源:https://github.com/uiverse-io/galaxy 的 LICENSE 文件,逐字收录。
+对应 THIRD-PARTY-NOTICES.md「Uiverse.io 按钮交互」条目;贡献者署名
+gharsh11032000。
+
+------ 以下为上游 LICENSE 原文 ------
+
+MIT License
+
+Copyright (c) 2023 Uiverse.io
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+------ 上游 LICENSE 原文结束 ------
+
+
+第三节 Claudian(MIT)
+---------------------
+
+来源:https://github.com/YishenTu/claudian 的 LICENSE 文件,逐字收录。
+对应 THIRD-PARTY-NOTICES.md「Claudian」条目;视觉资产溯源提交
+9496e66a3877aa9993f73432d411b7cd682f4557(经 TALOS 视觉壳继承,
+现存在于 styles/quyuan-shell.css 的 .claudian-* 选择器)。
+
+------ 以下为上游 LICENSE 原文 ------
+
+MIT License
+
+Copyright (c) 2025
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+------ 上游 LICENSE 原文结束 ------
